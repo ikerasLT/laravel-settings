@@ -18,5 +18,5 @@ function settings($key = null, $value = null)
         return $settings->get($key);
     }
 
-    return $settings->getAll();
+    return $settings->getAll()->keyBy('key');
 }
