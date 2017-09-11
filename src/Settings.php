@@ -12,7 +12,7 @@ class Settings
      */
     public function get($key)
     {
-        return Setting::where('key', '=', $key)->first();
+        return Setting::where('key', '=', $key)->first()->value;
     }
 
     /**
