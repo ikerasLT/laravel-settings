@@ -8,7 +8,7 @@ class Settings
     /**
      * @param string $key
      *
-     * @return \Ikeraslt\Settings\Setting
+     * @return mixed
      */
     public function get($key)
     {

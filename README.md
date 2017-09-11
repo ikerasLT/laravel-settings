@@ -32,6 +32,10 @@ Set value:
 
 `settings('key', 'value');`
 
+Get all:
+
+`settings()`
+
 ### Via facade
 
 Get setting:
@@ -41,3 +45,7 @@ Get setting:
 Set value:
 
 `Settings::set('key', 'value');`
+
+Get all:
+
+`Settings::getAll()`
