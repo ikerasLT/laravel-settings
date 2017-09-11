@@ -1,0 +1,15 @@
+{
+    "name": "ikeraslt/laravel-settings",
+    "require": {
+        "php": "^7.0",
+        "laravel/framework": "5.4"
+    },
+    "autoload" : {
+        "psr-4": {
+            "Ikeraslt\\Settings\\" : "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}
