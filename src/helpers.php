@@ -1,18 +1,22 @@
 <?php
 
 /**
- * @param string $key
+ * @param string|null $key
  * @param string|null $value
  *
- * @return \Ikeraslt\Settings\Setting
+ * @return \Ikeraslt\Settings\Setting|\Ikeraslt\Settings\Setting[]|\Illuminate\Support\Collection
  */
-function settings($key, $value = null)
+function settings($key = null, $value = null)
 {
     $settings = new Ikeraslt\Settings\Settings();
 
-    if ($value) {
+    if ($key && $value) {
         return $settings->set($key, $value);
     }
 
-    return $settings->get($key);
+    if ($key) {
+        return $settings->get($key);
+    }
+
+    return $settings->getAll();
 }

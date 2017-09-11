@@ -25,4 +25,12 @@ class Settings
     {
         return Setting::updateOrCreate(['key' => $key], ['value' => $value]);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|\Ikeraslt\Settings\Setting[]
+     */
+    public function getAll()
+    {
+        return Setting::all();
+    }
 }
