@@ -3,7 +3,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.0",
-        "illuminate/database": "5.4.*"
+        "illuminate/database": "5.4.*",
+        "illuminate/cache": "5.4.*"
     },
     "autoload" : {
         "psr-4": {

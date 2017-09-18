@@ -3,6 +3,9 @@
 namespace Ikeraslt\Settings;
 
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Password;
+
 class Settings
 {
     /**
@@ -12,7 +15,17 @@ class Settings
      */
     public function get($key)
     {
-        return Setting::where('key', '=', $key)->first()->value;
+        if (in_array(Cache::getDefaultDriver(), ['file', 'database'])) {
+            $setting = Cache::rememberForever('settings.' . $key, function () use ($key) {
+                return Setting::where('key', '=', $key)->first()->value;
+            });
+        } else {
+            $setting = Cache::tags(['settings'])->remeberForever($key, function () use ($key) {
+                return Setting::where('key', '=', $key)->first()->value;
+            });
+        }
+
+        return $setting;
     }
 
     /**
@@ -23,7 +36,15 @@ class Settings
      */
     public function set($key, $value)
     {
-        return Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+        $setting = Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+
+        if (in_array(Cache::getDefaultDriver(), ['file', 'database'])) {
+            Cache::forever('settings.' . $setting->key, $setting->value);
+        } else {
+            Cache::tags(['settings'])->forever($setting->key, $setting->value);
+        }
+
+        return $setting;
     }
 
     /**
@@ -31,6 +52,16 @@ class Settings
      */
     public function getAll()
     {
-        return Setting::all();
+        if (in_array(Cache::getDefaultDriver(), ['file', 'database'])) {
+            $settings = Cache::rememberForever('settings.all', function () {
+                return Setting::all();
+            });
+        } else {
+            $settings = Cache::tags(['settings'])->remeberForever('all', function () {
+                return Setting::all();
+            });
+        }
+
+        return $settings;
     }
 }
