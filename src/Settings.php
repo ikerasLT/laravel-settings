@@ -20,7 +20,7 @@ class Settings
                 return Setting::where('key', '=', $key)->first()->value;
             });
         } else {
-            $setting = Cache::tags(['settings'])->remeberForever($key, function () use ($key) {
+            $setting = Cache::tags(['settings'])->rememberForever($key, function () use ($key) {
                 return Setting::where('key', '=', $key)->first()->value;
             });
         }
@@ -57,7 +57,7 @@ class Settings
                 return Setting::all();
             });
         } else {
-            $settings = Cache::tags(['settings'])->remeberForever('all', function () {
+            $settings = Cache::tags(['settings'])->rememberForever('all', function () {
                 return Setting::all();
             });
         }
