@@ -39,8 +39,10 @@ class Settings
         $setting = Setting::updateOrCreate(['key' => $key], ['value' => $value]);
 
         if (in_array(Cache::getDefaultDriver(), ['file', 'database'])) {
+            Cache::forget('settings.all');
             Cache::forever('settings.' . $setting->key, $setting->value);
         } else {
+            Cache::tags(['settings'])->flush();
             Cache::tags(['settings'])->forever($setting->key, $setting->value);
         }
 
