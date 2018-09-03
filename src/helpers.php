@@ -10,11 +10,11 @@ function settings($key = null, $value = null)
 {
     $settings = new Ikeraslt\Settings\Settings();
 
-    if ($key && $value) {
+    if ($key !== null && $value !== null) {
         return $settings->set($key, $value);
     }
 
-    if ($key) {
+    if ($key !== null) {
         return $settings->get($key);
     }
 
