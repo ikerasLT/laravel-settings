@@ -17,11 +17,11 @@ class Settings
     {
         if (in_array(Cache::getDefaultDriver(), ['file', 'database'])) {
             $setting = Cache::rememberForever('settings.' . $key, function () use ($key) {
-                return Setting::where('key', '=', $key)->first()->value;
+                return Setting::where('key', '=', $key)->value('value');
             });
         } else {
             $setting = Cache::tags(['settings'])->rememberForever($key, function () use ($key) {
-                return Setting::where('key', '=', $key)->first()->value;
+                return Setting::where('key', '=', $key)->value('value');
             });
         }
 
